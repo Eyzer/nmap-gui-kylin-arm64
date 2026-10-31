@@ -1,0 +1,54 @@
+Nmap 图形界面 使用说明（银河麒麟 V10 arm64）
+================================================
+
+一、安装
+  sudo dpkg -i nmapgui_1.0.0+kylin1_arm64.deb
+  卸载：sudo dpkg -r nmapgui
+
+二、启动
+  开始菜单 → 网络 / 系统 → “Nmap 图形界面”
+  或终端执行：nmapgui
+
+三、环境要求
+  1. 系统架构：aarch64（arm64）
+  2. glibc 版本：≥ 2.29（麒麟 V10 SP2 / SP3 可用；V10 SP1 为 2.27，装不上）
+  3. 图形会话：必须是 X11（echo $XDG_SESSION_TYPE 应显示 x11）
+     Wayland 下程序会强制以 xcb 兼容模式启动，若仍异常请切换到 X11 会话
+  4. Qt5 运行库：libqt5core5a / libqt5gui5 / libqt5widgets5（桌面版系统自带）
+
+四、功能说明
+  扫描设置页
+    - 扫描类型：TCP 连接(-sT) / SYN 半开(-sS) / UDP(-sU) / 主机发现(-sn) / ACK(-sA) / FIN(-sF)
+    - 端口范围：常用 100、前 1000、全端口、自定义
+    - 探测选项：服务版本 -sV、系统识别 -O、全面扫描 -A、跳过发现 -Pn、禁解析 -n、仅开放 --open
+  NSE 脚本与高级页
+    - 脚本类别：default / vuln / discovery / safe / auth
+    - 指定脚本名与脚本参数（--script-args）
+    - 附加参数：直接拼到命令行的任意 nmap 参数
+  结果区
+    - 实时输出：nmap 原始输出
+    - 端口结果：自动解析成表格（端口/协议/状态/服务/版本），扫描完成自动切换
+    - 保存结果：导出为 txt
+
+五、权限说明
+  - TCP 连接扫描(-sT) 普通用户即可运行
+  - SYN / UDP / ACK / FIN / 系统识别 需要管理员权限
+    程序会自动调用系统授权组件（pkexec）弹窗，输入管理员口令即可
+  - 若系统未安装授权组件，程序会提示改用 TCP 连接扫描
+
+六、常见问题
+  1. 双击菜单无反应
+     终端执行 nmapgui 查看报错；确认 X11 会话
+  2. 提示“未检测到图形会话”
+     当前是纯命令行环境，需在桌面里运行
+  3. 扫描结果为空
+     目标不可达或全部端口关闭；勾选“只显示开放端口”时仅展示 open 状态
+  4. 提示 glibc 版本不满足
+     系统低于麒麟 V10 SP2，本包不适用
+
+七、技术信息
+  - GUI：Qt5 单文件程序，二进制基线 GLIBC_2.17
+  - 引擎：内置 Nmap 7.80 + 完整 NSE 脚本库（22MB）
+  - 自带运行库（libpcap/liblua5.3/libpcre/libssl/libcrypto/liblinear/libz）
+    通过绝对 RPATH 加载，不污染系统库，也不需要系统预装 nmap
+  - 安装路径：/opt/nmapgui
