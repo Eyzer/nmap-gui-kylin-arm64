@@ -1,0 +1,19 @@
+#!/bin/sh
+set -e
+
+if [ -x /usr/bin/gtk-update-icon-cache ] && [ -d /usr/share/icons/hicolor ]; then
+    gtk-update-icon-cache -q -t -f /usr/share/icons/hicolor >/dev/null 2>&1 || true
+fi
+if command -v update-desktop-database >/dev/null 2>&1; then
+    update-desktop-database -q /usr/share/applications >/dev/null 2>&1 || true
+fi
+
+chmod 0755 /opt/nmapgui/run.sh /opt/nmapgui/bin/nmapgui /opt/nmapgui/bin/nmap /usr/bin/nmapgui 2>/dev/null || true
+chmod 0755 /opt/nmapgui/lib/* 2>/dev/null || true
+
+# 原始套接字能力：允许普通用户执行 SYN/UDP 扫描时减少一次授权提示
+if command -v setcap >/dev/null 2>&1; then
+    setcap cap_net_raw,cap_net_admin,cap_net_bind_service+eip /opt/nmapgui/bin/nmap 2>/dev/null || true
+fi
+
+exit 0
