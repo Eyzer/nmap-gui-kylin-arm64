@@ -1,0 +1,17 @@
+Package: nmapgui
+Version: 1.0.0+kylin1
+Architecture: arm64
+Maintainer: Eyzer <eyzer@qq.com>
+Installed-Size: @SIZE@
+Depends: libc6 (>= 2.29), libstdc++6, libqt5core5a (>= 5.12), libqt5gui5 (>= 5.12), libqt5widgets5 (>= 5.12), libgl1
+Recommends: policykit-1
+Section: net
+Priority: optional
+Homepage: https://nmap.org
+Description: Nmap 中文图形界面网络扫描工具
+ 基于 Nmap 官方扫描引擎的中文图形化前端，提供扫描类型选择、端口范围设定、
+ 服务版本识别、操作系统识别、NSE 脚本调用等常用能力的中文界面封装，
+ 扫描结果可实时查看、按端口表格化展示，并可保存为文本文件。
+ .
+ 内置 Nmap 7.80 扫描引擎与完整 NSE 脚本库，安装即用，无需另行安装 nmap。
+ 适用于银河麒麟 V10（aarch64）桌面环境，需要 X11 会话。
