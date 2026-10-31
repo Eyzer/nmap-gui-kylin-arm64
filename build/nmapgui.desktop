@@ -1,0 +1,16 @@
+[Desktop Entry]
+Type=Application
+Version=1.0
+Name=Nmap 图形界面
+Name[en]=Nmap GUI
+GenericName=网络扫描工具
+GenericName[en]=Network Scanner
+Comment=基于 Nmap 引擎的中文图形化网络扫描与端口探测工具
+Comment[en]=Chinese GUI front-end for the Nmap network scanner
+Exec=/opt/nmapgui/run.sh
+Icon=nmapgui
+Terminal=false
+Categories=Network;Security;System;
+Keywords=nmap;scan;port;security;扫描;端口;网络;
+StartupNotify=true
+StartupWMClass=nmapgui
